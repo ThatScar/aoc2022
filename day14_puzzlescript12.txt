@@ -1,0 +1,119 @@
+title aoc2022-14
+homepage www.puzzlescript.net
+(works for both parts 1 and 2)
+(paste this in puzzlescript.net/editor.html)
+(paste the scanned level/first output at the bottom of this code)
+(ctrl+click ON THE TEXT YOU JUST PASTED to run the scanned level)
+(once it's done, focus on main screen, press P and copy the output)
+
+run_rules_on_level_start
+again_interval 0.001
+
+========
+OBJECTS
+========
+
+Background
+white lightblue
+11111
+01111
+11101
+11111
+10111
+
+Supported
+darkblue
+.....
+.000.
+.0.0.
+.000.
+.....
+
+Wall
+brown darkbrown
+00010
+11111
+01000
+11111
+00010
+
+Player
+black orange white blue
+.000.
+.111.
+22222
+.333.
+.3.3.
+
+Sand
+orange
+00000
+0...0
+0...0
+0...0
+00000
+
+=======
+LEGEND
+=======
+
+. = Background
+# = Wall
++ = Player
+o = Sand and Supported
+
+Physical = Sand or Wall
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background
+Wall
+Player
+Sand
+Supported
+
+======
+RULES
+======
+
+up [ Wall | ] -> [ Wall | Supported ]
+
+[ Sand no Supported ] -> [ down Sand ]
+left [ stationary Sand | no Supported ] -> [ > Sand | ]
+right [ stationary Sand | no Supported ] -> [ > Sand | ]
+up [ stationary Physical Supported | ] -> [ Physical Supported | Supported ]
+up [ Sand no Supported | Sand no Supported ][ Player ] -> [ | ][ action Player ]
+[ action Player ][ moving Sand ] -> [ action Player ][ ]
+[ action Player ] -> [ ]
+
+[ Player | moving Sand ] -> [ action Player | moving Sand ]
+down [ no Sand | stationary Player no Sand ] -> [ > Sand | Player ]
+
+late [ Player ] -> again
+
+==============
+WINCONDITIONS
+==============
+
+=======
+LEVELS
+=======
+............
+.......+....
+............
+............
+............
+.....#...##.
+.....#...#..
+...###...#..
+.........#..
+.........#..
+.#########..
+............
+
